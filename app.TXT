@@ -1,0 +1,468 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow
+ */
+import React, {Component} from 'react';
+import {Text, View, TextInput, Button, TouchableOpacity,ImageBackground,Modal,StyleSheet} from 'react-native';
+import CheckBox from 'react-native-check-box';
+
+export default class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          email: '',
+          password: '',
+          isChecked: false,
+          emailerror: '',
+          passworderror: '',
+          emailvalid: false,
+          passwordvalid: false,
+          isvisible:false
+        };
+    }
+  
+  
+  openpopup = () => {
+    
+    this.setState({ isvisible: true });
+
+  }
+  
+    onlogin = () => {
+        console.log('login');
+      console.log(this.state);
+       if (this.emailvalid == true && this.passwordvalid == true) {
+        console.log('valid');
+       }
+       else
+        console.log('error');
+    };
+  
+  passwordfocus = () => {
+    
+    this.setState({ passworderror: '' });
+  
+  
+  }
+  passwordvalidator = () => {
+    
+    if (this.state.password == '')
+    this.setState({ passworderror: 'password is required ' });
+    else
+      this.setState({passwordvalid:true})
+  }
+  emailfocus = () => {
+    
+    this.setState({ emailerror: '' });
+
+  }
+
+  emailvalidator = () => {
+    
+    if (this.state.email == '')
+      this.setState({ emailerror: 'email is required ' });
+    else
+      this.setState({emailvalid:true})
+  }
+  
+  checkvalue = () => {
+    this.setState({isChecked: !this.state.isChecked});
+    this.refs.focusechange.focus();
+  }
+  
+  
+    render() {
+        return (
+            <ImageBackground source={{ uri: 'http://miamihomecareservices.com/wp-content/uploads/2013/05/shutterstock_70250746.jpg' }}
+            style={{ width: '100%', height: '100%' }}>
+      <View
+        style={{
+          flex: 2,
+          alignItems: 'center',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <View style={{backgroundColor: 'white', padding: 30, paddingTop: 40,marginBottom:20}}>
+          <TextInput
+            style={{
+              width: 300,
+              height: 50,
+              borderColor: 'black',
+              borderBottomWidth: 1,
+            }}
+                  placeholder="Email"
+                  ref='focusechange'
+            value={this.state.email}
+                  onChangeText={email => this.setState({ email })}
+                  onFocus={this.emailfocus}
+                  onBlur={this.emailvalidator}
+            //value={value}
+                />
+          <Text style={{color:'red'}}>{this.state.emailerror}</Text>
+          <TextInput
+            style={{
+              width: 300,
+              height: 50,
+              borderColor: 'black',
+              borderBottomWidth: 1,
+              marginBottom: 15,
+            }}
+            placeholder="Password"
+            secureTextEntry={true}
+            value={this.state.password}
+                  onChangeText={password => this.setState({ password })}
+                  onFocus={this.passwordfocus}
+                  onBlur={this.passwordvalidator}
+                />
+
+          <Text style={{color:'red'}}>{this.state.passworderror}</Text>
+          <CheckBox
+            style={{marginBottom: 20}}
+                  onClick={this.checkvalue}
+            isChecked={this.state.isChecked}
+            rightText={'Rembember Me'}
+          />
+
+          <Button title="LOGIN" color="#e91e63" onPress={this.onlogin} />
+        </View>
+
+        <View style={{flexDirection: 'row',marginBottom:20 }}>
+          <TouchableOpacity onPress={this.openpopup}>
+            <Text style={{color:'white'}} > FORGOT PASSWORD</Text>
+          </TouchableOpacity>
+
+          <Text style={{color:'white'}} > | </Text>
+
+          <TouchableOpacity>
+            <Text style={{color:'white'}} > SIGN UP</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{width: '90%', marginBottom:20}}>
+          <Button title="GUEST LOGIN" color="#0098df" />
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity>
+            <Text style={{color:'white'}}>TERMS OF USE </Text>
+          </TouchableOpacity>
+          <Text style={{color:'white'}} > | </Text>
+          <TouchableOpacity>
+            <Text style={{color:'white'}}>PRIVACY POLICY</Text>
+          </TouchableOpacity>
+        </View>
+            </View>
+
+            <Modal
+            
+              transparent={true}
+              visible={true}
+            >
+               <TouchableOpacity>      
+                  <Text style={{ color: 'black', fontSize: 25,marginLeft:350 }}>X</Text>
+                </TouchableOpacity>
+              <View style={styles.modal}>   
+              <Text style={styles.modalhead}>FORGOT PASSWORD</Text>  
+                <TextInput style={styles.modalinput}
+                 placeholder='Please enter here'
+                
+                />     
+          </View> 
+          </Modal>
+
+
+
+
+            </ImageBackground>
+    );
+  }
+}
+
+var styles = StyleSheet.create({
+  modal: {
+    backgroundColor: 'black', 
+    width: 370,
+    height: 120,
+    marginLeft: 12, 
+    marginTop: 330,
+    borderRadius:15,
+  },
+  
+ modalinput: {
+   backgroundColor: '#dee5e2',
+   borderRadius: 7,
+   marginTop:50
+   
+ },
+  modalhead: {
+    color: '#e91e63',
+    fontSize: 18,
+    marginTop: 12,
+    marginLeft:14
+
+}
+
+});
+
+---------------------------------------------------------------------------------
+
+
+
+import React, {Component} from 'react';
+import {
+  Text,
+  View,
+  StatusBar,
+  TextInput,
+  Button,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+} from 'react-native';
+import CheckBox from 'react-native-check-box';
+import {white} from 'color-name';
+
+export default class App1 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      mobileNumber: '',
+      password: '',
+      confirmpass: '',
+      isChecked: false,
+      nameerror: '',
+      numbererror: '',
+      passworderror: '',
+      confirmpasserror: '',
+      namevaild: false,
+      mobilevalid: false,
+      passwordvalid: false,
+      confirmpassvalid: false,
+    };
+  }
+
+  checkvalue = () => {
+    this.setState({
+      isChecked: !this.state.isChecked,
+    });
+    console.log('here');
+    this.refs.TotalInputField.focus();
+  };
+
+  namevalidator = () => {
+    if (this.state.name == '') this.setState({nameerror: 'name is required'});
+    else {
+      this.setState({nameerror: ''});
+      this.setState({namevaild: true});
+    }
+  };
+
+  onfocusname = () => {
+    this.setState({nameerror: ''});
+  };
+
+  onfocusmobile = () => {
+    this.setState({numbererror: ''});
+  };
+
+  onfocuspassword = () => {
+    this.setState({passworderror: ''});
+  };
+
+  onfocusconfirmpass = () => {
+    this.setState({confirmpasserror: ''});
+  };
+
+  mobilenumbervalidator = () => {
+    if (this.state.mobileNumber == '')
+      this.setState({numbererror: 'mobilenumber is required '});
+    else {
+      this.setState({numbererror: ''});
+
+      if (this.state.mobileNumber) {
+        const reg = /^[0]?[789]\d{9}$/;
+        if (reg.test(this.state.mobileNumber) === false) {
+          this.setState({numbererror: 'enter a valid number'});
+        } else this.setState({mobilevalid: true});
+      }
+    }
+  };
+
+  passwordvalidator = () => {
+    if (this.state.password == '')
+      this.setState({passworderror: 'password is required '});
+    else {
+      this.setState({passworderror: ''});
+
+      if (this.state.password.length >= 8 && this.state.password.length <= 12) {
+        this.setState({passwordvalid: true});
+      } else this.setState({passworderror: 'password must have 8 letters'});
+    }
+  };
+
+  confirmpasswordvalidator = () => {
+    console.log('fksdhk');
+    if (this.state.confirmpass == '') {
+      console.log('gajdgsaj');
+      this.setState({confirmpasserror: 'confirmpassword is required '});
+    } else {
+      this.setState({confirmpasserror: ''});
+      console.log('hert-----------');
+      if (this.state.password === this.state.confirmpass) {
+        console.log('here---------------');
+        this.setState({confirmpassvalid: true});
+      } else this.setState({confirmpasserror: 'confirmpassword must be same'});
+    }
+  };
+
+  submit = () => {
+    console.log(this.state.namevaild, 'here');
+    console.log(this.state.mobilevalid);
+    console.log(this.state.passwordvalid);
+    console.log(this.state.confirmpassvalid);
+
+    console.log(this.state, 'frondsgufhudh');
+    if (
+      this.state.namevaild == true &&
+      this.state.passwordvalid == true &&
+      this.state.mobilevalid == true &&
+      this.state.confirmpassvalid == true &&
+      this.state.isChecked == true
+    ) {
+      console.log('form is valid ');
+    } else {
+      Alert.alert(
+        'FORM IS INVALID',
+        'My Alert Msg',
+        [
+          {
+            text: 'Ask me later',
+            onPress: () => console.log('Ask me later pressed'),
+          },
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        {cancelable: false},
+      );
+    }
+  };
+
+  render() {
+    return (
+      <View>
+        <TouchableOpacity style={{height: 50, backgroundColor: 'pink'}}>
+          <Text style={{fontSize: 20, color: 'white', padding: 12}}>
+            Continue
+          </Text>
+        </TouchableOpacity>
+        <View style={styles.formview}>
+          <Text>Name</Text>
+          <TextInput
+            style={[
+              styles.forminput,
+              !this.state.nameerror == ' '
+                ? {borderColor: 'red'}
+                : {borderColor: 'black'},
+            ]}
+            placeholder="Name"
+            ref="TotalInputField"
+            onBlur={this.namevalidator}
+            onFocus={this.onfocusname}
+            value={this.state.name}
+            onChangeText={name => this.setState({name})}
+          />
+          <Text style={styles.Texterror}>{this.state.nameerror}</Text>
+          <Text>Mobile Number</Text>
+          <TextInput
+            style={[
+              styles.forminput,
+              !this.state.numbererror == ' '
+                ? {borderColor: 'red'}
+                : {borderColor: 'black'},
+            ]}
+            placeholder="Mobile Number"
+            maxLength={10}
+            onBlur={this.mobilenumbervalidator}
+            onFocus={this.onfocusmobile}
+            value={this.state.mobileNumber}
+            keyboardType={'numeric'}
+            onChangeText={mobileNumber => this.setState({mobileNumber})}
+          />
+          <Text style={styles.Texterror}>{this.state.numbererror}</Text>
+          <Text>Password</Text>
+          <TextInput
+            style={[
+              styles.forminput,
+              !this.state.passworderror == ' '
+                ? {borderColor: 'red'}
+                : {borderColor: 'black'},
+            ]}
+            placeholder="Password"
+            onBlur={this.passwordvalidator}
+            onFocus={this.onfocuspassword}
+            secureTextEntry={true}
+            value={this.state.password}
+            onChangeText={password => this.setState({password})}
+          />
+
+          <Text style={styles.Texterror}>{this.state.passworderror}</Text>
+          <Text>Confirm Password</Text>
+
+          <TextInput
+            style={[
+              styles.forminput,
+              !this.state.confirmpasserror == ' '
+                ? {borderColor: 'red'}
+                : {borderColor: 'black'},
+            ]}
+            placeholder="Confirm Password"
+            onFocus={this.onfocusconfirmpass}
+            onBlur={this.confirmpasswordvalidator}
+            secureTextEntry={true}
+            value={this.state.confirmpass}
+            onChangeText={confirmpass => this.setState({confirmpass})}
+          />
+          <Text style={styles.Texterror}>{this.state.confirmpasserror}</Text>
+          <CheckBox
+            style={{marginBottom: 20}}
+            onClick={this.checkvalue}
+            isChecked={this.state.isChecked}
+            rightText={'Rembember Me'}
+          />
+        </View>
+        <TouchableOpacity
+          onPress={this.submit}
+          style={{height: 50, backgroundColor: '#0098df', bottom: -200}}>
+          <Text style={{fontSize: 20, color: 'white', padding: 12}}>
+            Continue
+          </Text>
+        </TouchableOpacity>
+        {/* <Button title="Continue" onPress={this.submit} /> */}
+      </View>
+    );
+  }
+}
+
+var styles = StyleSheet.create({
+  formview: {
+    padding: 10,
+  },
+
+  forminput: {
+    // borderBottomColor: 'black',
+    borderBottomWidth: 1,
+  },
+
+  Texterror: {
+    color: 'red',
+  },
+});
+
+
+
